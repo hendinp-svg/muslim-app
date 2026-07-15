@@ -1,0 +1,358 @@
+/* ── Sahabat Muslim ── tema zamrud gelap + aksen emas ─────────────── */
+@font-face {
+  font-family: "LPMQ";
+  src: url("fonts/LPMQ-Isep-Misbah.woff2") format("woff2");
+  font-display: swap;
+}
+
+:root {
+  --bg: #07110d;
+  --bg2: #0b1a14;
+  --card: #10231b;
+  --card2: #142b21;
+  --line: rgba(232, 191, 106, 0.14);
+  --teks: #eef4f0;
+  --redup: #9db4a9;
+  --emas: #e8bf6a;
+  --hijau: #2fae7d;
+  --hijau-tua: #0b6e4f;
+  --radius: 18px;
+  --arab-size: 1.75rem;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, #123527 0%, var(--bg) 55%) fixed,
+    var(--bg);
+  color: var(--teks);
+  min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+#app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + 14px) 16px
+           calc(env(safe-area-inset-bottom) + 96px);
+}
+
+.tab { display: none; }
+.tab.active { display: block; animation: fadein .25s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+
+.hidden { display: none !important; }
+.subtle { color: var(--redup); font-size: .82rem; }
+.catatan {
+  color: var(--redup); font-size: .74rem; line-height: 1.5;
+  margin-top: 18px; text-align: center; padding: 0 8px;
+}
+
+/* ── header halaman ── */
+.page-head { padding: 10px 2px 14px; }
+.page-head h1 {
+  font-size: 1.6rem; font-weight: 800; letter-spacing: -.02em;
+  background: linear-gradient(120deg, var(--teks), var(--emas));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.page-head .subtle { margin-top: 4px; }
+
+/* ── TAB SHOLAT ── */
+.hero {
+  background: linear-gradient(160deg, #14382a 0%, #0c2018 70%);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 18px 18px 22px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .35);
+}
+.hero-top {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;
+}
+.tanggal { font-weight: 700; font-size: .95rem; }
+.tanggal-hijriah { color: var(--emas); font-size: .8rem; margin-top: 2px; }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(232, 191, 106, .1);
+  border: 1px solid var(--line);
+  color: var(--teks);
+  border-radius: 999px; padding: 7px 12px;
+  font-size: .76rem; font-weight: 600;
+  max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.chip .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--hijau); flex: none;
+  box-shadow: 0 0 8px var(--hijau);
+}
+
+.hero-next { text-align: center; margin-top: 22px; }
+.hero-label {
+  color: var(--redup); font-size: .72rem; text-transform: uppercase;
+  letter-spacing: .14em;
+}
+.hero-sholat { color: var(--emas); font-weight: 800; font-size: 1.3rem; margin-top: 6px; }
+.hero-jam {
+  font-size: 3.2rem; font-weight: 800; letter-spacing: -.03em;
+  font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.hero-count { color: var(--redup); font-size: .85rem; margin-top: 4px; font-variant-numeric: tabular-nums; }
+
+.cards { margin-top: 16px; display: grid; gap: 8px; }
+.waktu-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--card);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.waktu-row.aktif {
+  background: linear-gradient(120deg, rgba(47, 174, 125, .18), rgba(232, 191, 106, .08));
+  border-color: rgba(47, 174, 125, .4);
+}
+.waktu-row.lewat { opacity: .5; }
+.waktu-nama { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: .95rem; }
+.waktu-ikon { font-size: 1.05rem; }
+.waktu-jam { font-weight: 700; font-variant-numeric: tabular-nums; font-size: 1rem; }
+.waktu-row.aktif .waktu-jam { color: var(--emas); }
+
+.metode-wrap { margin-top: 16px; }
+.metode-label {
+  color: var(--redup); font-size: .72rem; text-transform: uppercase;
+  letter-spacing: .14em; text-align: center; margin-bottom: 8px;
+}
+.segmen {
+  display: flex; gap: 4px; padding: 4px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+}
+.segbtn {
+  flex: 1; border: none; background: none;
+  color: var(--redup); font-weight: 600; font-size: .82rem;
+  padding: 10px 8px; border-radius: 10px;
+}
+.segbtn.active {
+  background: linear-gradient(120deg, var(--hijau-tua), var(--hijau));
+  color: #fff;
+}
+
+/* ── TAB QUR'AN ── */
+.searchwrap { margin: 4px 0 12px; }
+#cari-surah {
+  width: 100%; padding: 12px 16px;
+  background: var(--card); color: var(--teks);
+  border: 1px solid var(--line); border-radius: 14px;
+  font-size: .95rem; outline: none;
+  -webkit-appearance: none;
+}
+#cari-surah::placeholder { color: var(--redup); }
+
+.resume {
+  width: 100%; text-align: left;
+  background: linear-gradient(120deg, rgba(232,191,106,.16), rgba(47,174,125,.1));
+  border: 1px solid var(--line); color: var(--teks);
+  border-radius: 14px; padding: 12px 16px; margin-bottom: 12px;
+  font-size: .88rem; font-weight: 600;
+}
+.resume small { display: block; color: var(--redup); font-weight: 400; margin-top: 2px; }
+
+.surah-list { display: grid; gap: 8px; }
+.surah-item {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card); border: 1px solid transparent;
+  border-radius: var(--radius); padding: 12px 14px;
+  color: var(--teks); text-align: left; width: 100%;
+  transition: transform .08s;
+}
+.surah-item:active { transform: scale(.985); background: var(--card2); }
+.surah-no {
+  flex: none; width: 38px; height: 38px;
+  display: grid; place-items: center;
+  background: rgba(232,191,106,.1); color: var(--emas);
+  border-radius: 12px; font-weight: 700; font-size: .82rem;
+}
+.surah-mid { flex: 1; min-width: 0; }
+.surah-latin { display: block; font-weight: 700; font-size: .95rem; }
+.surah-arti { display: block; color: var(--redup); font-size: .76rem; margin-top: 2px; }
+.surah-ar {
+  font-family: "LPMQ", "Geeza Pro", serif;
+  color: var(--emas); font-size: 1.25rem; flex: none;
+}
+
+/* pembaca */
+.reader-head {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; align-items: center; gap: 10px;
+  padding: calc(env(safe-area-inset-top) + 6px) 0 10px;
+  background: linear-gradient(var(--bg) 75%, transparent);
+}
+.reader-title { flex: 1; min-width: 0; }
+#reader-nama { font-weight: 800; font-size: 1.05rem; }
+.reader-tools { display: flex; gap: 6px; }
+.iconbtn {
+  background: var(--card); color: var(--teks);
+  border: 1px solid var(--line); border-radius: 12px;
+  min-width: 40px; height: 40px; font-size: 1rem; font-weight: 700;
+}
+.reader-opts {
+  display: flex; gap: 16px; padding: 2px 2px 12px;
+  color: var(--redup); font-size: .84rem;
+}
+.reader-opts label { display: flex; align-items: center; gap: 6px; }
+.reader-opts input { accent-color: var(--hijau); width: 17px; height: 17px; }
+
+.basmalah {
+  font-family: "LPMQ", "Geeza Pro", serif;
+  text-align: center; font-size: 1.7rem; color: var(--emas);
+  padding: 10px 0 18px; direction: rtl;
+}
+
+.ayat-list { display: grid; gap: 10px; }
+.ayat-card {
+  background: var(--card); border-radius: var(--radius);
+  padding: 14px 16px; border: 1px solid transparent;
+}
+.ayat-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.ayat-no {
+  background: rgba(47,174,125,.14); color: var(--hijau);
+  font-size: .72rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 999px;
+}
+.btn-star {
+  background: none; border: none; color: var(--redup); font-size: 1.25rem;
+  padding: 2px 6px; line-height: 1;
+}
+.btn-star.aktif { color: var(--emas); }
+
+/* daftar bookmark */
+.bookmark-list { display: grid; gap: 8px; margin-bottom: 12px; }
+.bm-item {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 14px; padding: 10px 12px;
+}
+.bm-main {
+  flex: 1; min-width: 0; text-align: left;
+  background: none; border: none; color: var(--teks);
+}
+.bm-judul { display: block; font-weight: 700; font-size: .88rem; }
+.bm-cuplikan {
+  display: block; color: var(--redup); font-size: .76rem;
+  margin-top: 2px; line-height: 1.45;
+}
+.bm-hapus {
+  flex: none; background: none; border: none;
+  color: var(--redup); font-size: .95rem; padding: 6px 8px;
+}
+.ayat-arab {
+  font-family: "LPMQ", "Geeza Pro", serif;
+  font-size: var(--arab-size); line-height: 2.1;
+  direction: rtl; text-align: right;
+}
+.ayat-latin {
+  color: var(--emas); font-size: .82rem; font-style: italic;
+  margin-top: 10px; line-height: 1.6;
+}
+.ayat-id { color: var(--redup); font-size: .86rem; margin-top: 8px; line-height: 1.6; }
+
+.reader-nav { display: flex; gap: 10px; margin-top: 18px; }
+.navbtn {
+  flex: 1; padding: 13px; border-radius: 14px;
+  background: var(--card); color: var(--teks);
+  border: 1px solid var(--line); font-weight: 600; font-size: .88rem;
+}
+.navbtn:disabled { opacity: .35; }
+
+/* ── TAB KIBLAT ── */
+.compass-wrap { display: grid; place-items: center; padding: 12px 0 6px; }
+.compass-dial {
+  position: relative;
+  width: min(78vw, 300px); height: min(78vw, 300px);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 42%, #17352a 0%, #0c1f17 72%);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 0 40px rgba(0,0,0,.45), 0 14px 44px rgba(0,0,0,.4);
+  transition: transform .12s linear;
+}
+.compass-dial::after {
+  content: ""; position: absolute; inset: 12%;
+  border-radius: 50%; border: 1px dashed rgba(232,191,106,.22);
+}
+.tick-n, .tick-e, .tick-s, .tick-w {
+  position: absolute; font-weight: 800; font-size: .85rem; color: var(--redup);
+  left: 50%; top: 50%;
+}
+.tick-n { transform: translate(-50%, -50%) translateY(calc(min(39vw,150px) * -0.82)); color: var(--emas); }
+.tick-s { transform: translate(-50%, -50%) translateY(calc(min(39vw,150px) * 0.82)); }
+.tick-e { transform: translate(-50%, -50%) translateX(calc(min(39vw,150px) * 0.82)); }
+.tick-w { transform: translate(-50%, -50%) translateX(calc(min(39vw,150px) * -0.82)); }
+
+.qibla-needle {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  transform: rotate(var(--rot, 0deg));
+  transition: transform .12s linear;
+}
+.needle-line {
+  position: absolute; left: 50%; top: 50%;
+  width: 3px; height: 38%;
+  background: linear-gradient(to top, transparent, var(--emas));
+  transform: translate(-50%, -100%);
+  border-radius: 3px;
+}
+.needle-kaaba {
+  position: absolute; left: 50%; top: 50%;
+  /* --counter menegakkan glyph: membatalkan rotasi dial + jarum */
+  transform: translate(-50%, -50%) translateY(calc(min(39vw,150px) * -0.52))
+             rotate(var(--counter, 0deg));
+  font-size: 1.7rem;
+  filter: drop-shadow(0 2px 8px rgba(232,191,106,.5));
+}
+.heading-readout {
+  margin-top: 14px; font-size: 1.05rem; font-weight: 700;
+  font-variant-numeric: tabular-nums; color: var(--emas);
+}
+
+.kiblat-status {
+  text-align: center; color: var(--redup); font-size: .85rem;
+  min-height: 1.4em; margin: 6px 0 12px;
+}
+.kiblat-status.pas { color: var(--hijau); font-weight: 700; }
+
+.bigbtn {
+  display: block; width: 100%;
+  background: linear-gradient(120deg, var(--hijau-tua), var(--hijau));
+  color: #fff; font-weight: 700; font-size: .95rem;
+  border: none; border-radius: 16px; padding: 15px;
+  box-shadow: 0 8px 24px rgba(47,174,125,.25);
+}
+.bigbtn:active { transform: scale(.985); }
+
+/* ── tab bar bawah ── */
+.tabbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  display: flex; justify-content: space-around;
+  max-width: 640px; margin: 0 auto;
+  background: rgba(10, 22, 16, .82);
+  -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+  border-top: 1px solid var(--line);
+  padding: 8px 8px calc(env(safe-area-inset-bottom) + 8px);
+}
+.tabbtn {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: none; border: none; color: var(--redup);
+  font-size: .68rem; font-weight: 600; padding: 4px 0;
+}
+.tabbtn .tabicon { font-size: 1.35rem; line-height: 1; }
+.tabbtn.active { color: var(--emas); }
+
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; font-family: inherit; }

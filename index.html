@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <!-- viewport-fit=cover lets content extend under the notch; pair with safe-area CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <title>Sahabat Muslim</title>
+
+  <!-- PWA / theming -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#07281E" />
+
+  <!-- iOS Home Screen behaviour. Declare BOTH the modern and legacy keys. -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Muslim" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app">
+
+    <!-- ══════════ TAB: JADWAL SHOLAT ══════════ -->
+    <section id="tab-sholat" class="tab active">
+      <header class="hero">
+        <div class="hero-top">
+          <div>
+            <div id="tanggal-masehi" class="tanggal">—</div>
+            <div id="tanggal-hijriah" class="tanggal-hijriah"></div>
+          </div>
+          <button id="btn-lokasi" class="chip" title="Perbarui lokasi">
+            <span class="dot"></span><span id="nama-lokasi">Mencari lokasi…</span>
+          </button>
+        </div>
+        <div class="hero-next">
+          <div class="hero-label">Waktu sholat berikutnya</div>
+          <div id="next-name" class="hero-sholat">—</div>
+          <div id="next-time" class="hero-jam">--:--</div>
+          <div id="countdown" class="hero-count"></div>
+        </div>
+      </header>
+
+      <div id="daftar-waktu" class="cards"></div>
+
+      <div class="metode-wrap">
+        <div class="metode-label">Metode perhitungan</div>
+        <div class="segmen" id="pilih-metode">
+          <button class="segbtn" data-metode="kemenag">Kemenag RI</button>
+          <button class="segbtn" data-metode="mwl">Muslim World League</button>
+        </div>
+      </div>
+
+      <p class="catatan" id="catatan-metode"></p>
+    </section>
+
+    <!-- ══════════ TAB: AL-QUR'AN ══════════ -->
+    <section id="tab-quran" class="tab">
+      <!-- daftar surah -->
+      <div id="quran-list-view">
+        <header class="page-head">
+          <h1>Al-Qur'an</h1>
+          <p class="subtle">Mushaf Al-Qur'an Standar Usmani Indonesia — Kemenag RI</p>
+        </header>
+        <button id="btn-lanjut" class="resume hidden"></button>
+        <div class="searchwrap">
+          <input id="cari-surah" type="search" placeholder="Cari surah… (nama / nomor / arti)"
+                 autocomplete="off" />
+        </div>
+        <div id="daftar-surah" class="surah-list"></div>
+      </div>
+
+      <!-- pembaca surah -->
+      <div id="quran-reader-view" class="hidden">
+        <header class="reader-head">
+          <button id="btn-kembali" class="iconbtn" aria-label="Kembali">‹</button>
+          <div class="reader-title">
+            <div id="reader-nama">—</div>
+            <div id="reader-info" class="subtle"></div>
+          </div>
+          <div class="reader-tools">
+            <button id="btn-font-kecil" class="iconbtn" aria-label="Perkecil huruf">A−</button>
+            <button id="btn-font-besar" class="iconbtn" aria-label="Perbesar huruf">A+</button>
+          </div>
+        </header>
+        <div class="reader-opts">
+          <label><input type="checkbox" id="opt-latin" /> Latin</label>
+          <label><input type="checkbox" id="opt-terjemah" checked /> Terjemahan</label>
+        </div>
+        <div id="basmalah" class="basmalah hidden">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+        <div id="daftar-ayat" class="ayat-list"></div>
+        <div class="reader-nav">
+          <button id="btn-prev-surah" class="navbtn">‹ Sebelumnya</button>
+          <button id="btn-next-surah" class="navbtn">Berikutnya ›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ TAB: AYAT TERSIMPAN ══════════ -->
+    <section id="tab-simpan" class="tab">
+      <header class="page-head">
+        <h1>Ayat Tersimpan</h1>
+        <p class="subtle">Semua ayat yang kamu bookmark dengan ⭐</p>
+      </header>
+      <div id="daftar-simpan" class="bookmark-list"></div>
+      <p id="simpan-kosong" class="catatan hidden">Belum ada ayat tersimpan.
+        Buka surah di tab Qur'an lalu ketuk ☆ pada ayat untuk menyimpannya.</p>
+    </section>
+
+    <!-- ══════════ TAB: KIBLAT ══════════ -->
+    <section id="tab-kiblat" class="tab">
+      <header class="page-head">
+        <h1>Arah Kiblat</h1>
+        <p class="subtle" id="kiblat-info">Menghitung arah dari lokasimu ke Ka'bah…</p>
+      </header>
+
+      <div class="compass-wrap">
+        <div id="compass-dial" class="compass-dial">
+          <div class="tick-n">U</div><div class="tick-e">T</div>
+          <div class="tick-s">S</div><div class="tick-w">B</div>
+          <div id="qibla-needle" class="qibla-needle">
+            <div class="needle-line"></div>
+            <div class="needle-kaaba">🕋</div>
+          </div>
+        </div>
+        <div id="heading-readout" class="heading-readout">—</div>
+      </div>
+
+      <div id="kiblat-status" class="kiblat-status"></div>
+      <button id="btn-kompas" class="bigbtn">Aktifkan Kompas</button>
+      <p class="catatan">Jauhkan iPhone dari benda logam/magnet. Gerakkan membentuk angka 8
+        untuk kalibrasi bila arah terasa tidak akurat. Arah dihitung dengan lingkaran besar
+        (great circle) menuju Ka'bah, Makkah.</p>
+    </section>
+
+  </main>
+
+  <!-- tab bar bawah -->
+  <nav class="tabbar">
+    <button class="tabbtn active" data-tab="tab-sholat">
+      <span class="tabicon">🕌</span><span>Sholat</span>
+    </button>
+    <button class="tabbtn" data-tab="tab-quran">
+      <span class="tabicon">📖</span><span>Qur'an</span>
+    </button>
+    <button class="tabbtn" data-tab="tab-simpan">
+      <span class="tabicon">⭐</span><span>Tersimpan</span>
+    </button>
+    <button class="tabbtn" data-tab="tab-kiblat">
+      <span class="tabicon">🧭</span><span>Kiblat</span>
+    </button>
+  </nav>
+
+  <script src="app.js"></script>
+  <script>
+    // Register the service worker only in a secure context (HTTPS or
+    // localhost). iOS silently refuses SWs on plain-http LAN addresses.
+    if ('serviceWorker' in navigator &&
+        (location.protocol === 'https:' || location.hostname === 'localhost')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch((err) =>
+          console.warn('SW registration failed:', err)
+        );
+      });
+    }
+  </script>
+</body>
+</html>
